@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/ringkjologfrys/static/css/main.f6f08b8f.css",
-    "main.js": "/ringkjologfrys/static/js/main.e65e9cac.js",
-    "static/js/787.05733302.chunk.js": "/ringkjologfrys/static/js/787.05733302.chunk.js",
-    "static/media/Roboto-Regular.ttf": "/ringkjologfrys/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
-    "static/media/RINGLOGO.webp": "/ringkjologfrys/static/media/RINGLOGO.106adb36d96973115e41.webp",
-    "static/media/RINGLOGO_WHITE.webp": "/ringkjologfrys/static/media/RINGLOGO_WHITE.1f7f56343a392537f02f.webp",
-    "index.html": "/ringkjologfrys/index.html",
-    "main.f6f08b8f.css.map": "/ringkjologfrys/static/css/main.f6f08b8f.css.map",
-    "main.e65e9cac.js.map": "/ringkjologfrys/static/js/main.e65e9cac.js.map",
-    "787.05733302.chunk.js.map": "/ringkjologfrys/static/js/787.05733302.chunk.js.map"
+    "main.css": "/ringkjologfrys.no/static/css/main.8663a8c4.css",
+    "main.js": "/ringkjologfrys.no/static/js/main.11cd2b23.js",
+    "static/js/787.05733302.chunk.js": "/ringkjologfrys.no/static/js/787.05733302.chunk.js",
+    "static/media/Roboto-Regular.ttf": "/ringkjologfrys.no/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/RINGLOGO.webp": "/ringkjologfrys.no/static/media/RINGLOGO.106adb36d96973115e41.webp",
+    "static/media/RINGLOGO_WHITE.webp": "/ringkjologfrys.no/static/media/RINGLOGO_WHITE.1f7f56343a392537f02f.webp",
+    "index.html": "/ringkjologfrys.no/index.html",
+    "main.8663a8c4.css.map": "/ringkjologfrys.no/static/css/main.8663a8c4.css.map",
+    "main.11cd2b23.js.map": "/ringkjologfrys.no/static/js/main.11cd2b23.js.map",
+    "787.05733302.chunk.js.map": "/ringkjologfrys.no/static/js/787.05733302.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6f08b8f.css",
-    "static/js/main.e65e9cac.js"
+    "static/css/main.8663a8c4.css",
+    "static/js/main.11cd2b23.js"
   ]
 }
