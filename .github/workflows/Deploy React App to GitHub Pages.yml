@@ -13,6 +13,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: github-pages  # Specify the github-pages environment
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,7 +29,7 @@ jobs:
 
       - name: Debug GitHub Secrets
         run: |
-          echo "Checking GitHub Secrets:"
+          echo "Checking GitHub Secrets in github-pages environment:"
           if [ -z "${{ secrets.REACT_APP_PROJECTID }}" ]; then
             echo "ERROR: REACT_APP_PROJECTID secret is not set!"
             exit 1
@@ -72,17 +73,6 @@ jobs:
             echo "REACT_APP_MEASURMENTID secret is set (value: ${{ secrets.REACT_APP_MEASURMENTID }})"
           fi
 
-      - name: Debug Environment Variables
-        run: |
-          echo "Listing REACT_APP_ environment variables:"
-          env | grep REACT_APP_ | sort
-          if [ -z "$REACT_APP_PROJECTID" ]; then
-            echo "ERROR: REACT_APP_PROJECTID environment variable is not set!"
-            exit 1
-          else
-            echo "REACT_APP_PROJECTID environment variable is set to: $REACT_APP_PROJECTID"
-          fi
-
       - name: Build React App
         run: npm run build
         env:
@@ -95,25 +85,8 @@ jobs:
           REACT_APP_MEASURMENTID: ${{ secrets.REACT_APP_MEASURMENTID }}
           CI: false
 
-      - name: Debug Build Output
-        run: |
-          echo "Checking for REACT_APP_PROJECTID in build files:"
-          if [ -d "build/static/js" ]; then
-            grep -r "REACT_APP_PROJECTID" build/static/js || echo "No REACT_APP_PROJECTID found in build files"
-          else
-            echo "ERROR: build/static/js directory not found!"
-            exit 1
-          fi
-          echo "Listing build directory contents:"
-          ls -R build
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build
-
-      - name: Debug Deployment
-        run: |
-          echo "Deployment to gh-pages completed. Checking gh-pages branch:"
-          git ls-remote --heads origin gh-pages
