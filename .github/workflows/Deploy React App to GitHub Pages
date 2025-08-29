@@ -1,0 +1,41 @@
+name: Deploy React App to GitHub Pages
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+  workflow_dispatch:  # Allow manual triggering of the workflow
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Checkout the repository code
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Specify the Node.js version (adjust as needed)
+          cache: 'npm'  # Cache npm dependencies for faster builds
+
+      - name: Install dependencies
+        run: npm install  # Install project dependencies
+
+      - name: Build React App
+        run: npm run build  # Build the React app
+        env:
+          REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}  # Inject secret as env variable
+          REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}  # Inject another secret
+          REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID }}  # Inject another secret
+          REACT_APP_STORAGEBUCKET: ${{ secrets.REACT_APP_STORAGEBUCKET }}  # Inject another secret
+          REACT_APP_MESSAGINGSENDERID: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}  # Inject another secret
+          REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}  # Inject another secret
+          REACT_APP_MEASURMENTID: ${{ secrets.REACT_APP_MEASURMENTID }}  # Inject another secret
+          CI: false  # Prevent build warnings from being treated as errors
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # Deploy to the gh-pages branch
+          folder: build  # Deploy the contents of the build folder
+      
