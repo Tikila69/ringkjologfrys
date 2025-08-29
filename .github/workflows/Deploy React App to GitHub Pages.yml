@@ -26,15 +26,61 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug GitHub Secrets
+        run: |
+          echo "Checking GitHub Secrets:"
+          if [ -z "${{ secrets.REACT_APP_PROJECTID }}" ]; then
+            echo "ERROR: REACT_APP_PROJECTID secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_PROJECTID secret is set (value: ${{ secrets.REACT_APP_PROJECTID }})"
+          fi
+          if [ -z "${{ secrets.REACT_APP_APIKEY }}" ]; then
+            echo "ERROR: REACT_APP_APIKEY secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_APIKEY secret is set (value not shown for security)"
+          fi
+          if [ -z "${{ secrets.REACT_APP_DOMAIN }}" ]; then
+            echo "ERROR: REACT_APP_DOMAIN secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_DOMAIN secret is set (value: ${{ secrets.REACT_APP_DOMAIN }})"
+          fi
+          if [ -z "${{ secrets.REACT_APP_STORAGEBUCKET }}" ]; then
+            echo "ERROR: REACT_APP_STORAGEBUCKET secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_STORAGEBUCKET secret is set (value: ${{ secrets.REACT_APP_STORAGEBUCKET }})"
+          fi
+          if [ -z "${{ secrets.REACT_APP_MESSAGINGSENDERID }}" ]; then
+            echo "ERROR: REACT_APP_MESSAGINGSENDERID secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_MESSAGINGSENDERID secret is set (value: ${{ secrets.REACT_APP_MESSAGINGSENDERID }})"
+          fi
+          if [ -z "${{ secrets.REACT_APP_APPID }}" ]; then
+            echo "ERROR: REACT_APP_APPID secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_APPID secret is set (value: ${{ secrets.REACT_APP_APPID }})"
+          fi
+          if [ -z "${{ secrets.REACT_APP_MEASURMENTID }}" ]; then
+            echo "ERROR: REACT_APP_MEASURMENTID secret is not set!"
+            exit 1
+          else
+            echo "REACT_APP_MEASURMENTID secret is set (value: ${{ secrets.REACT_APP_MEASURMENTID }})"
+          fi
+
       - name: Debug Environment Variables
         run: |
           echo "Listing REACT_APP_ environment variables:"
           env | grep REACT_APP_ | sort
           if [ -z "$REACT_APP_PROJECTID" ]; then
-            echo "ERROR: REACT_APP_PROJECTID is not set!"
+            echo "ERROR: REACT_APP_PROJECTID environment variable is not set!"
             exit 1
           else
-            echo "REACT_APP_PROJECTID is set to: $REACT_APP_PROJECTID"
+            echo "REACT_APP_PROJECTID environment variable is set to: $REACT_APP_PROJECTID"
           fi
 
       - name: Build React App
