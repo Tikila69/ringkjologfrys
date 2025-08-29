@@ -5,6 +5,11 @@ on:
       - main  # Trigger the workflow on push to the main branch
   workflow_dispatch:  # Allow manual triggering of the workflow
 
+permissions:
+  contents: write  # Allow writing to repository contents (e.g., pushing to gh-pages)
+  pages: write     # Allow deploying to GitHub Pages
+  id-token: write  # Allow JWT token for authentication
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
