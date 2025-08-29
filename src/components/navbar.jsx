@@ -22,7 +22,7 @@ function Navbar(props) {
 
     return (
         <div
-            className="fixed flex justify-between p-4 shadow-md z-50 flex-wrap"
+            className="fixed flex justify-between p-4 shadow-md z-50 flex-wrap w-full"
             style={{
                 backgroundColor: props.home ? (color ? "transparent" : "#FFFFFF") : "#FFFFFF",
                 transitionDuration: "0.3s",
@@ -33,10 +33,10 @@ function Navbar(props) {
                     : "5px 0px 10px black",
             }}
         >
-            <Link className="w-1/2" onClick={scrollToTop} to="/">
+            <Link className="w-1/3" onClick={scrollToTop} to="/">
                 <img src={props.home ? (color ? LogoWhite : Logo) : Logo} alt="Logo" />
             </Link>
-            <ul className="flex items-center justify-between gap-3">
+            <ul className="flex items-center justify-between gap-6">
                 <div>
                     <Link
                         style={{
