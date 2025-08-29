@@ -7,98 +7,100 @@ import { db } from "../firebase-config";
 import { ProductsHome } from "../components/ProductsHome";
 import { Infocard } from "../components/Infocard";
 import KontaktOss from "../components/KontaktOss";
-import { NavbarMobil } from "../components/navbarMobil";
 import { Link } from "react-router-dom";
 
 function Home() {
-  const stylingHome = {
-    Home: {
-      display: "flex",
-      flexDirection: "column",
-      alignContent: "Space-between",
-      background: "#EFEFEF",
-      fontFamily: "roboto",
-    },
-    stylingHomeInfocard: {
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      marginTop: "2%",
-      border: "none"
-    },
-  };
-
-  const [forside, setForside] = useState([]);
-  const textRef = useMemo(() => collection(db, "Forside"), []);
-  useEffect(() => {
-    const getText = async () => {
-      const data = await getDocs(textRef);
-      setForside(
-        data.docs
-          .map((doc) => ({ ...doc.data(), id: doc.id }))
-          .sort((a, b) => (a.order > b.order ? 1 : -1))
-      );
+    const stylingHome = {
+        Home: {
+            display: "flex",
+            flexDirection: "column",
+            alignContent: "Space-between",
+            background: "#EFEFEF",
+            fontFamily: "roboto",
+        },
+        stylingHomeInfocard: {
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginTop: "2%",
+            border: "none",
+        },
     };
-    getText();
-  }, [textRef]);
 
-  const scrollToTop = () => {
-    window.scrollTo(0, 0)
-}
-
-  return (
-    <div style={stylingHome.Home}>
-      {window.innerWidth > 768 ? <Navbar home={true} /> : <NavbarMobil home={true} />}
-
-      {forside.map((data) => {
-        if (data.id === "header") {
-          return <Header OverskriftTekst={data.tittel} home={true} />;
-        }
-        return null;
-      })}
-
-      <ProductsHome />
-
-      <button style={stylingHome.stylingHomeInfocard} to="/Products/LuftLuft" alt="Luft-Luft">
-        {forside.map((data) => {
-          if (
-            data.id === "infocardLuftLuft" ||
-            data.id === "infocardLuftVann" ||
-            data.id === "infocardVaeskeVann" ||
-            data.id === "infocardKjolerom"
-          ) {
-            return (
-              <Link to={data.link} style={{textDecoration:"none"}} onClick={scrollToTop}>
-                <Infocard 
-                  imgSource={data.img}
-                  employeeName={data.tittel}
-                  employeeDescription={data.beskrivelse}
-                  backgroundColor={"white"}
-                  tekst={data.alt}
-                />
-                </Link>
+    const [forside, setForside] = useState([]);
+    const textRef = useMemo(() => collection(db, "Forside"), []);
+    useEffect(() => {
+        const getText = async () => {
+            const data = await getDocs(textRef);
+            setForside(
+                data.docs
+                    .map((doc) => ({ ...doc.data(), id: doc.id }))
+                    .sort((a, b) => (a.order > b.order ? 1 : -1))
             );
-          }
-          return null;
-        })}
-      </button>
+        };
+        getText();
+    }, [textRef]);
 
-      {forside.map((data) => {
-        if (data.id === "kontaktOssKomponent") {
-          return (
-            <KontaktOss
-              tittel={data.tittel}
-              undertekst={data.undertekst}
-              tlf={data.tlf}
-            />
-          );
-        }
-        return null;
-      })}
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
 
-      <Footer />
-    </div>
-  );
+    return (
+        <div style={stylingHome.Home} className="w-full">
+            <Navbar home={true} />
+
+            {forside.map((data) => {
+                if (data.id === "header") {
+                    return <Header OverskriftTekst={data.tittel} home={true} />;
+                }
+                return null;
+            })}
+
+            <ProductsHome />
+
+            <a style={stylingHome.stylingHomeInfocard} to="/Products/LuftLuft" alt="Luft-Luft">
+                {forside.map((data) => {
+                    if (
+                        data.id === "infocardLuftLuft" ||
+                        data.id === "infocardLuftVann" ||
+                        data.id === "infocardVaeskeVann" ||
+                        data.id === "infocardKjolerom"
+                    ) {
+                        return (
+                            <Link
+                                to={data.link}
+                                onClick={scrollToTop}
+                                className="hover:scale-105 duration-300 decoration-none z-auto"
+                            >
+                                <Infocard
+                                    imgSource={data.img}
+                                    employeeName={data.tittel}
+                                    employeeDescription={data.beskrivelse}
+                                    tekst={data.alt}
+                                />
+                            </Link>
+                        );
+                    }
+                    return null;
+                })}
+            </a>
+
+            {forside.map((data) => {
+                if (data.id === "kontaktOssKomponent") {
+                    return (
+                        <KontaktOss
+                            tittel={data.tittel}
+                            undertekst={data.undertekst}
+                            tlf={data.tlf}
+                        />
+                    );
+                }
+                return null;
+            })}
+
+            <Footer />
+        </div>
+    );
 }
 
 export default Home;
