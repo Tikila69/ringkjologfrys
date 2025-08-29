@@ -6,7 +6,7 @@ function LiggendeInfocard(props) {
     return (
         <section
             className={
-                "flex border rounded-xl  shadow-md bg-white p-4 shadow-gray-300 max-w-screen-xl justify-start overflow-hidden flex-wrap " +
+                "flex border rounded-xl shadow-md bg-white max-w-2xl p-4 shadow-gray-300 justify-start overflow-hidden flex-wrap " +
                 (expanded ? "h-fit " : "max-h-full")
             }
         >

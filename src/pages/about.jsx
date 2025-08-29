@@ -30,30 +30,32 @@ function About() {
     return (
         <div className="flex flex-col bg-[#EFEFEF] font-['roboto'] font-[400]">
             <Navbar />
-            <h1 className="mt-36 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto]">
-                SERTIFIKAT
-            </h1>
-            <hr className="border-1 border-[#25346d] w-1/2 ml-6 p-2" />
-
-            <div className="flex flex-wrap gap-4 ml-6 mr-6">
-                {certificateData.map((data) => {
-                    return (
-                        <Certificate
-                            standing={window.innerWidth > 768 ? data.standing : "false"}
-                            imgSource={data.img}
-                            alttekst={data.alt}
-                            certificateText={data.beskrivelse}
-                            backgroundColor={"white"}
-                        />
-                    );
-                })}
-            </div>
-            <div>
-                <h1 className=" mt-20 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto]">
-                    OM OSS
+            <div className="flex flex-col self-center">
+                <h1 className="mt-36 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto] uppercase">
+                    sertifikat
                 </h1>
                 <hr className="border-1 border-[#25346d] w-1/2 ml-6 p-2" />
-                <div className="ml-6 mr-6">
+
+                <div className="flex flex-wrap gap-4 ml-6 mr-6">
+                    {certificateData.map((data) => {
+                        return (
+                            <Certificate
+                                standing={window.innerWidth > 768 ? data.standing : "false"}
+                                imgSource={data.img}
+                                alttekst={data.alt}
+                                certificateText={data.beskrivelse}
+                                backgroundColor={"white"}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="flex flex-col self-center">
+                <h1 className="mt-36 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto] uppercase">
+                    om oss
+                </h1>
+                <hr className="border-1 border-[#25346d] w-1/2 ml-6 p-2" />
+                <div className="flex flex-wrap gap-4 ml-6 mr-6">
                     {etablertData.map((etablertdata) => {
                         return (
                             <LiggendeInfocard
@@ -66,7 +68,6 @@ function About() {
                     })}
                 </div>
             </div>
-
             <KontaktOss
                 tittel={"Kontakt Oss"}
                 undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
