@@ -1,81 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 function LiggendeInfocard(props) {
-  const liggendeInfocardStyle = {
-    display: "flex",
-    borderWidth: 1,
-    height: "25rem",
-    width: "95%",
-    alignItems: "center",
-    borderRadius: 5,
-    color: props.textColor,
-    fontSize: 16,
-    boxShadow: "2px 2px 5px grey",
-    backgroundColor: "white",
-    marginTop: "3rem",
-    fontFamily: "roboto"
-  };
+    const [expanded, setExpanded] = useState(false);
 
-  const divStyle = {
-    borderRadius: 5,
-    backgroundColor: "transparent"
-  };
-
-  const liggendeImageStyle = {
-    width: "300%",
-    display: "flex",
-    marginLeft: "2rem",
-    marginRight: "2rem",
-    flexDirection: "column",
-    maxWidth: "20rem",
-    maxHeight: "15rem"
-  };
-
-  const tekstdiv = {
-    display: "flex",
-    flexDirection: "column"
-  };
-
-  const overskriftLiggende = {
-    color: "black",
-    fontSize: "2rem",
-    justifyContent: "flexTop"
-  };
-
-  const undertekstLiggende = {
-    marginTop: "4rem",
-    color: "black",
-    fontSize: "1rem",
-    marginRight: "4rem"
-  };
-
-  const pil = {
-    color: "grey",
-    justifyContent: "flex-end",
-    display: "flex",
-    marginRight: "2rem",
-    marginTop: "3rem",
-    fontSize: "2rem",
-    paddingTop: "2rem"
-  };
-
-  return (
-    <div style={divStyle}>
-      <div style={liggendeInfocardStyle}>
-        {props.text}
-        <img
-          style={liggendeImageStyle}
-          src={props.bilde}
-          alt={props.bildeAlt}
-        />
-        <div style={tekstdiv}>
-          <p style={overskriftLiggende}>{props.overskriftLiggende}</p>
-          <p style={undertekstLiggende}>{props.undertekstLiggende}</p>
-          <p style={pil}>{props.pil}</p>
-        </div>
-      </div>
-    </div>
-  );
+    return (
+        <section
+            className={
+                "flex border rounded-xl  shadow-md bg-white p-4 shadow-gray-300 max-w-screen-xl justify-start overflow-hidden flex-wrap " +
+                (expanded ? "h-fit " : "max-h-full")
+            }
+        >
+            <img className="p-4" src={props.bilde} alt={props.bildeAlt} />
+            <section className={"flex flex-col p-4 self-center items-start gap-4"}>
+                <p
+                    className={
+                        " transition-all duration-300 " +
+                        (expanded
+                            ? "whitespace-pre-line text-base leading-relaxed"
+                            : "line-clamp-6")
+                    }
+                >
+                    {props.undertekstLiggende}
+                </p>
+                <div className="flex w-full justify-end">
+                    {!expanded && (
+                        <button
+                            className="border-2 px-4 py-2 rounded-xl hover:bg-blue-50 transition"
+                            onClick={() => setExpanded(true)}
+                        >
+                            Les mer
+                        </button>
+                    )}
+                    {expanded && (
+                        <button
+                            className="border-2 px-4 py-2 rounded-xl hover:bg-blue-50 transition"
+                            onClick={() => setExpanded(false)}
+                        >
+                            Lukk
+                        </button>
+                    )}
+                </div>
+            </section>
+        </section>
+    );
 }
 
 export default LiggendeInfocard;

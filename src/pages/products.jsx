@@ -10,88 +10,85 @@ import KontaktOss from "../components/KontaktOss";
 import { NavbarMobil } from "../components/navbarMobil";
 
 function Products(props) {
-  const sideStyling = {
-    Products: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "",
-      fontFamily: "roboto",
-      fontWeight: "400",
-      backgroundColor: "#EFEFEF",
-    },
-    buttonstyling: {
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "start",
-      marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
-      marginTop: "2rem",
-      marginBottom: "3rem",
-      gap: "1rem",
-    },
-    headerPlacement: {
-      display: "flex",
-      justifyContent: "center",
-      marginLeft: window.innerWidth > 768 ? "10rem" : "",
-    },
-  };
-
-  const [produkter, setProdukter] = useState([]);
-  const prodRef = useMemo(() => collection(db, "Produkter"), []);
-
-
-  useEffect(() => {
-    const getText = async () => {
-      const data = await getDocs(prodRef);
-      setProdukter(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id, key: doc.id }))
-      );
+    const sideStyling = {
+        Products: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "",
+            fontFamily: "roboto",
+            fontWeight: "400",
+            backgroundColor: "#EFEFEF",
+        },
+        buttonstyling: {
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "start",
+            marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
+            marginTop: "2rem",
+            marginBottom: "3rem",
+            gap: "1rem",
+        },
+        headerPlacement: {
+            display: "flex",
+            justifyContent: "center",
+            marginLeft: window.innerWidth > 768 ? "10rem" : "",
+        },
     };
-    getText();
-  }, [prodRef]);
 
-  return (
-    <div style={sideStyling.Products}>
-      {window.innerWidth > 768 ? <Navbar /> : <NavbarMobil />}
-      <div style={sideStyling.headerPlacement}>
-        {produkter.map((data) => {
-          if (data.id === "header") {
-            return (
-              <Header
-                OverskriftTekst={data.tittel}
-                UnderskriftTekst={data.undertekst}
-                products={true}
-              />
-            );
-          }
-          return null;
-        })}
-      </div>
+    const [produkter, setProdukter] = useState([]);
+    const prodRef = useMemo(() => collection(db, "Produkter"), []);
 
-      <div style={sideStyling.buttonstyling}>
-        <Link style={{ textDecoration: "none" }} to="/Products/LuftLuft">
-          <ProduktRadio text={"Luft/Luft"} />
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/Products/LuftVann">
-          <ProduktRadio text={"Luft/Vann"} />
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/Products/VaeskeVann">
-          <ProduktRadio text={"Væske/Vann"} />
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/Products/Kjolerom">
-          <ProduktRadio text={"Kjølerom"} />
-        </Link>
-      </div>
+    useEffect(() => {
+        const getText = async () => {
+            const data = await getDocs(prodRef);
+            setProdukter(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, key: doc.id })));
+        };
+        getText();
+    }, [prodRef]);
 
-      <KontaktOss
-        tittel={"Kontakt Oss"}
-        undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
-        tlf={"+47 918 06 377"}
-      />
+    return (
+        <div style={sideStyling.Products}>
+            <Navbar />
+            <div style={sideStyling.headerPlacement} className="mt-10">
+                {produkter.map((data) => {
+                    if (data.id === "header") {
+                        return (
+                            <Header
+                                OverskriftTekst={data.tittel}
+                                UnderskriftTekst={data.undertekst}
+                                products={true}
+                            />
+                        );
+                    }
+                    return null;
+                })}
+            </div>
 
-      <Footer />
-    </div>
-  );
+            <div style={sideStyling.buttonstyling}>
+                <Link style={{ textDecoration: "none" }} to="/Products/LuftLuft">
+                    <ProduktRadio text={"Luft/Luft"} />
+                </Link>
+                <Link style={{ textDecoration: "none" }} to="/Products/LuftVann">
+                    <ProduktRadio text={"Luft/Vann"} />
+                </Link>
+                <Link style={{ textDecoration: "none" }} to="/Products/VaeskeVann">
+                    <ProduktRadio text={"Væske/Vann"} />
+                </Link>
+                <Link style={{ textDecoration: "none" }} to="/Products/Kjolerom">
+                    <ProduktRadio text={"Kjølerom"} />
+                </Link>
+            </div>
+
+            <KontaktOss
+                tittel={"Kontakt Oss"}
+                undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
+                tlf={"+47 918 06 377"}
+            />
+
+            <Footer />
+        </div>
+    );
 }
 
 export default Products;

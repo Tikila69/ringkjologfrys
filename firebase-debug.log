@@ -1,0 +1,67 @@
+[debug] [2025-08-29T15:30:28.588Z] ----------------------------------------------------------------------
+[debug] [2025-08-29T15:30:28.590Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Didri\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2025-08-29T15:30:28.590Z] CLI Version:   14.15.1
+[debug] [2025-08-29T15:30:28.590Z] Platform:      win32
+[debug] [2025-08-29T15:30:28.590Z] Node Version:  v20.11.1
+[debug] [2025-08-29T15:30:28.590Z] Time:          Fri Aug 29 2025 17:30:28 GMT+0200 (sentraleuropeisk sommertid)
+[debug] [2025-08-29T15:30:28.590Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-08-29T15:30:28.706Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-29T15:30:28.706Z] > authorizing via signed-in user (didrik.ruud.sawkins@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Didri\GitHub\ringkjologfrys
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-08-29T15:30:30.682Z] Using project from CLI flag: ring-kjol-og-frys
+[debug] [2025-08-29T15:30:30.683Z] Checked if tokens are valid: true, expires at: 1756484784908
+[debug] [2025-08-29T15:30:30.683Z] Checked if tokens are valid: true, expires at: 1756484784908
+[debug] [2025-08-29T15:30:30.684Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ring-kjol-og-frys [none]
+[debug] [2025-08-29T15:30:31.227Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ring-kjol-og-frys 200
+[debug] [2025-08-29T15:30:31.227Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ring-kjol-og-frys {"projectId":"ring-kjol-og-frys","projectNumber":"314132105830","displayName":"Ring Kjol og Frys","name":"projects/ring-kjol-og-frys","resources":{"hostingSite":"ring-kjol-og-frys","locationId":"europe-west"},"state":"ACTIVE","etag":"1_73e8abb7-83ea-48f0-9e36-8342e974be10"}
+[info] i  Using project ring-kjol-og-frys (Ring Kjol og Frys) 
+[info] 
+=== Functions Setup
+[debug] [2025-08-29T15:30:31.293Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-29T15:30:31.293Z] > authorizing via signed-in user (didrik.ruud.sawkins@gmail.com)
+[debug] [2025-08-29T15:30:31.293Z] [iam] checking project ring-kjol-og-frys for permissions ["firebase.projects.get"]
+[debug] [2025-08-29T15:30:31.293Z] Checked if tokens are valid: true, expires at: 1756484784908
+[debug] [2025-08-29T15:30:31.293Z] Checked if tokens are valid: true, expires at: 1756484784908
+[debug] [2025-08-29T15:30:31.293Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ring-kjol-og-frys:testIamPermissions [none]
+[debug] [2025-08-29T15:30:31.293Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ring-kjol-og-frys:testIamPermissions x-goog-quota-user=projects/ring-kjol-og-frys
+[debug] [2025-08-29T15:30:31.293Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ring-kjol-og-frys:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-08-29T15:30:31.498Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ring-kjol-og-frys:testIamPermissions 200
+[debug] [2025-08-29T15:30:31.498Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ring-kjol-og-frys:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+Detected existing codebase(s): default, ringkjologfrys
+
+[debug] [2025-08-29T15:30:44.333Z] ExitPromptError: User force closed the prompt with SIGINT
+    at Interface.sigint (C:\Users\Didri\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\@inquirer\core\dist\commonjs\lib\create-prompt.js:101:37)
+    at Interface.emit (node:events:518:28)
+    at Interface.emit (node:domain:488:12)
+    at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1125:18)
+    at ReadStream.onkeypress (node:internal/readline/interface:264:20)
+    at ReadStream.emit (node:events:530:35)
+    at ReadStream.emit (node:domain:488:12)
+    at emitKeys (node:internal/readline/utils:371:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+[error] 
+[error] Error: An unexpected error has occurred.

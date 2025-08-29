@@ -6,150 +6,76 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 import LiggendeInfocard from "../components/liggendeinfo";
 import KontaktOss from "../components/KontaktOss";
-import { NavbarMobil } from "../components/navbarMobil";
-import { Historie } from "../components/Historiekort";
 
 function About() {
-  const aboutStyling = {
-    About: {
-      display: "flex",
-      flexDirection: "column",
-      alignContent: "space-between",
-      backgroundColor: "#EFEFEF",
-    },
-    HeaderTekst: {
-      display: "flex",
-      color: "#25346d",
-      alignSelf: "start",
-      justifyContent: "end",
-      fontSize: "2rem",
-      marginTop: "0%",
-      marginBottom: "2rem",
-      fontFamily: "roboto",
-      fontWeight: "200",
-      margin: window.innerWidth > 768 ? "0rem 15rem" : "11%",
-    },
+    const [certificateData, setCertificateData] = useState([]);
+    const textRef = useMemo(() => collection(db, "Serfikat"), []);
+    useEffect(() => {
+        const getText = async () => {
+            const data = await getDocs(textRef);
+            setCertificateData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        };
+        getText();
+    }, [textRef]);
+    const [etablertData, setetablertData] = useState([]);
+    const etablertRef = useMemo(() => collection(db, "Om oss"), []);
+    useEffect(() => {
+        const getText = async () => {
+            const data = await getDocs(etablertRef);
+            setetablertData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        };
+        getText();
+    }, [etablertRef]);
 
-    hrStyling: {
-      display: "flex",
-      alignSelf: "start",
-      marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
-      border: "1px solid #25346d",
-      width: window.innerWidth > 768 ? "25rem" : "80%",
-      marginTop: "2rem",
-    },
+    return (
+        <div className="flex flex-col bg-[#EFEFEF] font-['roboto'] font-[400]">
+            <Navbar />
+            <h1 className="mt-36 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto]">
+                SERTIFIKAT
+            </h1>
+            <hr className="border-1 border-[#25346d] w-1/2 ml-6 p-2" />
 
-    certificatePlacement: {
-      backgroundColor: "#transparent",
-      display: "flex",
-      flexWrap: "wrap",
-      flexDirection: "row",
-      justifyContent: "start",
-      marginBottom: "3rem",
-      marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
-      marginRight: "5rem",
-      gap: "1rem",
-    },
-    liggendeImageStyle: {
-      width: "20%",
-      display: "flex",
-      marginRight: "2rem",
-      flexDirection: "column",
-      justifyContent: "start",
-      
-    },
-    h1Styling: {
-      marginTop: window.innerWidth > 768 ? "10rem" : "22%",
-      color: "#25346d",
-      fontFamily: "roboto",
-      fontWeight: "200",
-      marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
-    },
-    liggendestyle: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "start",
-    },
-    styleliggende: {
-      marginLeft: window.innerWidth > 768 ? "15rem" : "7%",
-      marginRight: window.innerWidth > 768 ? "1rem" : "",
-    },
-  };
+            <div className="flex flex-wrap gap-4 ml-6 mr-6">
+                {certificateData.map((data) => {
+                    return (
+                        <Certificate
+                            standing={window.innerWidth > 768 ? data.standing : "false"}
+                            imgSource={data.img}
+                            alttekst={data.alt}
+                            certificateText={data.beskrivelse}
+                            backgroundColor={"white"}
+                        />
+                    );
+                })}
+            </div>
+            <div>
+                <h1 className=" mt-20 text-[#25346d] flex justify-start ml-8 text-3xl font-[roboto]">
+                    OM OSS
+                </h1>
+                <hr className="border-1 border-[#25346d] w-1/2 ml-6 p-2" />
+                <div className="ml-6 mr-6">
+                    {etablertData.map((etablertdata) => {
+                        return (
+                            <LiggendeInfocard
+                                bilde={etablertdata.img}
+                                bildeAlt={etablertdata.bildealt}
+                                overskriftLiggende={etablertdata.overskrift}
+                                undertekstLiggende={etablertdata.beskrivelse}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
 
-  const [certificateData, setCertificateData] = useState([]);
-  const textRef = useMemo(() => collection(db, "Serfikat"), []); ;
-  useEffect(() => {
-    const getText = async () => {
-      const data = await getDocs(textRef);
-      setCertificateData(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    };
-    getText();
-  }, [textRef]);
-  const [etablertData, setetablertData] = useState([]);
-  const etablertRef = useMemo(() =>  collection(db, "Om oss"), []);
-  useEffect(() => {
-    const getText = async () => {
-      const data = await getDocs(etablertRef);
-      setetablertData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getText();
-  }, [etablertRef]);
-
-  return (
-    <div style={aboutStyling.About}>
-      {window.innerWidth > 768 ? <Navbar /> : <NavbarMobil />}
-      <h1 style={aboutStyling.h1Styling}>SERTIFIKAT</h1>
-      <hr style={aboutStyling.hrStyling} />
-
-      <div style={aboutStyling.certificatePlacement}>
-        {certificateData.map((data) => {
-          return (
-            <Certificate
-              standing={window.innerWidth > 768 ? data.standing : "false"}
-              imgSource={data.img}
-              alttekst={data.alt}
-              certificateText={data.beskrivelse}
-              backgroundColor={"white"}
+            <KontaktOss
+                tittel={"Kontakt Oss"}
+                undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
+                tlf={"+47 918 06 377"}
             />
-          );
-        })}
-      </div>
-      <div style={aboutStyling.liggendestyle}>
-        <h1 style={aboutStyling.HeaderTekst}>OM OSS</h1>
-        <hr style={aboutStyling.hrStyling} />
-        <div style={aboutStyling.styleliggende}>
-          {etablertData.map((etablertdata) => {
-            return window.innerWidth > 768 ? (
-              <LiggendeInfocard
-                bilde={etablertdata.img}
-                bildeAlt={etablertdata.bildealt}
-                overskriftLiggende={etablertdata.overskrift}
-                undertekstLiggende={etablertdata.beskrivelse}
-              />
-            ) : (
-              <Historie
-                imgSource={etablertdata.img}
-                tekst={etablertdata.bildealt}
-                employeeName={etablertdata.overskrift}
-                employeeDescription={etablertdata.beskrivelse}
-                backgroundColor={"#FFFFFF"}  
-              />
-            );
-          })}
+
+            <Footer />
         </div>
-      </div>
-
-      <KontaktOss
-        tittel={"Kontakt Oss"}
-        undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
-        tlf={"+47 918 06 377"}
-      />
-
-      <Footer />
-    </div>
-  );
+    );
 }
 
 export default About;
