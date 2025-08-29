@@ -2,45 +2,72 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
-  workflow_dispatch:  # Allow manual triggering of the workflow
+      - main  # Adjust to your default branch (e.g., master)
+  workflow_dispatch:
 
 permissions:
-  contents: write  # Allow writing to repository contents (e.g., pushing to gh-pages)
-  pages: write     # Allow deploying to GitHub Pages
-  id-token: write  # Allow JWT token for authentication
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Checkout the repository code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'  # Specify the Node.js version (adjust as needed)
-          cache: 'npm'  # Cache npm dependencies for faster builds
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install  # Install project dependencies
+        run: npm ci
+
+      - name: Debug Environment Variables
+        run: |
+          echo "Listing REACT_APP_ environment variables:"
+          env | grep REACT_APP_ | sort
+          if [ -z "$REACT_APP_PROJECTID" ]; then
+            echo "ERROR: REACT_APP_PROJECTID is not set!"
+            exit 1
+          else
+            echo "REACT_APP_PROJECTID is set to: $REACT_APP_PROJECTID"
+          fi
 
       - name: Build React App
-        run: npm run build  # Build the React app
+        run: npm run build
         env:
-          REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}  # Inject secret as env variable
-          REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}  # Inject another secret
-          REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID }}  # Inject another secret
-          REACT_APP_STORAGEBUCKET: ${{ secrets.REACT_APP_STORAGEBUCKET }}  # Inject another secret
-          REACT_APP_MESSAGINGSENDERID: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}  # Inject another secret
-          REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}  # Inject another secret
-          REACT_APP_MEASURMENTID: ${{ secrets.REACT_APP_MEASURMENTID }}  # Inject another secret
-          CI: false  # Prevent build warnings from being treated as errors
+          REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}
+          REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}
+          REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID }}
+          REACT_APP_STORAGEBUCKET: ${{ secrets.REACT_APP_STORAGEBUCKET }}
+          REACT_APP_MESSAGINGSENDERID: ${{ secrets.REACT_APP_MESSAGINGSENDERID }}
+          REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}
+          REACT_APP_MEASURMENTID: ${{ secrets.REACT_APP_MEASURMENTID }}
+          CI: false
+
+      - name: Debug Build Output
+        run: |
+          echo "Checking for REACT_APP_PROJECTID in build files:"
+          if [ -d "build/static/js" ]; then
+            grep -r "REACT_APP_PROJECTID" build/static/js || echo "No REACT_APP_PROJECTID found in build files"
+          else
+            echo "ERROR: build/static/js directory not found!"
+            exit 1
+          fi
+          echo "Listing build directory contents:"
+          ls -R build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Deploy to the gh-pages branch
-          folder: build  # Deploy the contents of the build folder
-      
+          branch: gh-pages
+          folder: build
+
+      - name: Debug Deployment
+        run: |
+          echo "Deployment to gh-pages completed. Checking gh-pages branch:"
+          git ls-remote --heads origin gh-pages
