@@ -63,7 +63,12 @@ function Header(props) {
             {props.home ? "" : <hr style={stylingHeader.hrStyling} />}
             {props.home ? (
                 <Link style={stylingHeader.KontaktOssKnapp} to="/Contact">
-                    <Button backgroundColor="#FFFFFF" textColor="#25346d" text="Kontakt Oss" />
+                    <Button
+                        backgroundColor="#FFFFFF"
+                        textColor="#25346d"
+                        pointer={true}
+                        text="Kontakt Oss"
+                    />
                 </Link>
             ) : (
                 <p style={stylingHeader.Underskift}>{props.UnderskriftTekst}</p>
