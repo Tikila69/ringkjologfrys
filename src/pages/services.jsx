@@ -6,7 +6,6 @@ import { useState, useEffect, useMemo } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 import KontaktOss from "../components/KontaktOss";
-import { NavbarMobil } from "../components/navbarMobil";
 
 function Services(props) {
     const servicesStyling = {

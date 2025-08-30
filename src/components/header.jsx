@@ -2,67 +2,20 @@ import { Button } from "../components/Button";
 import { Link } from "react-router-dom";
 
 function Header(props) {
-    const stylingHeader = {
-        Header: {
-            backgroundColor: "transparent",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            alignSelf: "center",
-            backgroundImage: props.home
-                ? "url('https://firebasestorage.googleapis.com/v0/b/ring-kjol-og-frys.appspot.com/o/HeaderIMGVer6.webp?alt=media&token=7bad1097-9476-4881-a357-7f8870aa442b')"
-                : "",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            width: "100%",
-            height: props.home ? "30rem" : "",
-            marginBottom: "2rem",
-        },
-
-        Overskrift: {
-            color: props.home ? "#FFFFFF" : "#25346d",
-            backgroundColor: "transparent",
-            marginLeft: props.home ? (window.innerWidth < 768 ? "25%" : "15%") : "5rem",
-            marginTop: window.innerWidth > 768 ? (props.home ? "12rem" : "10rem") : "25%",
-            marginBottom: props.home ? "" : "2rem",
-            width: window.innerWidth < 768 ? "70%" : "20%",
-            fontFamily: "roboto",
-            fontWeight: "100",
-            textTransform: "uppercase",
-        },
-
-        Underskift: {
-            color: props.home ? "#FFFFFF" : "rgb(31,31,31)",
-            backgroundColor: "transparent",
-            width: window.innerWidth > 768 ? (props.home ? "30%" : "50%") : "80%",
-            marginLeft: window.innerWidth > 768 ? "5rem" : "11%",
-            marginTop: "2rem",
-            marginBottom: "0rem",
-            fontSize: props.home ? "" : "1.5rem",
-        },
-
-        KontaktOssKnapp: {
-            marginLeft: window.innerWidth < 768 ? "20%" : "13.5%",
-            marginTop: "2rem",
-            textDecoration: "none",
-            backgroundColor: "transparent",
-        },
-
-        hrStyling: {
-            marginLeft: window.innerWidth > 768 ? "5rem" : "2rem",
-            marginTop: "",
-            border: "1px solid #25346d",
-            width: window.innerWidth > 768 ? "25rem" : "80%",
-        },
-    };
-
     return (
-        <div style={stylingHeader.Header}>
-            <h1 style={stylingHeader.Overskrift}>{props.OverskriftTekst}</h1>
-            {props.home ? "" : <hr style={stylingHeader.hrStyling} />}
-            {props.home ? (
-                <Link style={stylingHeader.KontaktOssKnapp} to="/Contact">
+        <div
+            className="bg-cover bg-no-repeat bg-center w-full h-[30rem] flex flex-col place-content-center gap-6"
+            style={{
+                backgroundImage: props.backgroundImage ? props.backgroundImage : "",
+                padding: props.backgroundImage ? "4rem" : "0",
+            }}
+        >
+            <h1 className=" " style={{ color: props.backgroundImage ? "#FFFFFF" : "#25346d" }}>
+                {props.OverskriftTekst}
+            </h1>
+            {props.backgroundImage ? "" : <hr className="border border-[#25346d] w-1/3" />}
+            {props.button ? (
+                <Link to="/Contact">
                     <Button
                         backgroundColor="#FFFFFF"
                         textColor="#25346d"
@@ -71,7 +24,7 @@ function Header(props) {
                     />
                 </Link>
             ) : (
-                <p style={stylingHeader.Underskift}>{props.UnderskriftTekst}</p>
+                <p>{props.UnderskriftTekst}</p>
             )}
         </div>
     );
