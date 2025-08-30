@@ -51,14 +51,21 @@ function Home() {
 
             {forside.map((data) => {
                 if (data.id === "header") {
-                    return <Header OverskriftTekst={data.tittel} home={true} />;
+                    return (
+                        <Header
+                            OverskriftTekst={data.tittel}
+                            home={true}
+                            backgroundImage="url('https://firebasestorage.googleapis.com/v0/b/ring-kjol-og-frys.appspot.com/o/HeaderIMGVer6.webp?alt=media&token=7bad1097-9476-4881-a357-7f8870aa442b')"
+                            button={true}
+                        />
+                    );
                 }
                 return null;
             })}
 
             <ProductsHome />
 
-            <a style={stylingHome.stylingHomeInfocard} to="/Products/LuftLuft" alt="Luft-Luft">
+            <a className="flex flex-wrap self-center mt-2" to="/Products/LuftLuft" alt="Luft-Luft">
                 {forside.map((data) => {
                     if (
                         data.id === "infocardLuftLuft" ||

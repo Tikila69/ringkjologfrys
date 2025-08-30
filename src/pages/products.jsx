@@ -4,40 +4,18 @@ import Header from "../components/header";
 import { useState, useEffect, useMemo } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { Link } from "react-router-dom";
 import { ProduktRadio } from "../components/radiobtnpumpe";
 import KontaktOss from "../components/KontaktOss";
-import { NavbarMobil } from "../components/navbarMobil";
+import { Infocard } from "../components/Infocard";
 
 function Products(props) {
-    const sideStyling = {
-        Products: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "",
-            fontFamily: "roboto",
-            fontWeight: "400",
-            backgroundColor: "#EFEFEF",
-        },
-        buttonstyling: {
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "start",
-            marginLeft: window.innerWidth > 768 ? "15rem" : "11%",
-            marginTop: "2rem",
-            marginBottom: "3rem",
-            gap: "1rem",
-        },
-        headerPlacement: {
-            display: "flex",
-            justifyContent: "center",
-            marginLeft: window.innerWidth > 768 ? "10rem" : "",
-        },
-    };
-
     const [produkter, setProdukter] = useState([]);
+    const [productChoice, setProductChoice] = useState("");
     const prodRef = useMemo(() => collection(db, "Produkter"), []);
+
+    const handleProductChoice = (choice) => {
+        setProductChoice(choice);
+    };
 
     useEffect(() => {
         const getText = async () => {
@@ -48,44 +26,112 @@ function Products(props) {
     }, [prodRef]);
 
     return (
-        <div style={sideStyling.Products}>
+        <div className="flex flex-col" style={{ fontFamily: "roboto" }}>
             <Navbar />
-            <div style={sideStyling.headerPlacement} className="mt-10">
-                {produkter.map((data) => {
-                    if (data.id === "header") {
-                        return (
-                            <Header
-                                OverskriftTekst={data.tittel}
-                                UnderskriftTekst={data.undertekst}
-                                products={true}
-                            />
-                        );
-                    }
-                    return null;
-                })}
+            <div className="ml-6 flex flex-col max-w-[50%] self-center">
+                <div className="flex text-2xl">
+                    {produkter.map((data) => {
+                        if (data.id === "header" + productChoice.replace("/", "")) {
+                            return (
+                                <Header
+                                    OverskriftTekst={data.tittel}
+                                    UnderskriftTekst={data.undertekst}
+                                    products={true}
+                                />
+                            );
+                        }
+                    })}
+                </div>
             </div>
-
-            <div style={sideStyling.buttonstyling}>
-                <Link style={{ textDecoration: "none" }} to="/Products/LuftLuft">
-                    <ProduktRadio text={"Luft/Luft"} />
-                </Link>
-                <Link style={{ textDecoration: "none" }} to="/Products/LuftVann">
-                    <ProduktRadio text={"Luft/Vann"} />
-                </Link>
-                <Link style={{ textDecoration: "none" }} to="/Products/VaeskeVann">
-                    <ProduktRadio text={"Væske/Vann"} />
-                </Link>
-                <Link style={{ textDecoration: "none" }} to="/Products/Kjolerom">
-                    <ProduktRadio text={"Kjølerom"} />
-                </Link>
+            <div className="flex self-center gap-2 flex-wrap">
+                <ProduktRadio
+                    text={"Luft/Luft"}
+                    handleClick={() => handleProductChoice("Luft/Luft")}
+                    status={productChoice}
+                />
+                <ProduktRadio
+                    text={"Luft/Vann"}
+                    handleClick={() => handleProductChoice("Luft/Vann")}
+                    status={productChoice}
+                />
+                <ProduktRadio
+                    text={"Væske/Vann"}
+                    handleClick={() => handleProductChoice("Væske/Vann")}
+                    status={productChoice}
+                />
+                <ProduktRadio
+                    text={"Kjølerom"}
+                    handleClick={() => handleProductChoice("Kjølerom")}
+                    status={productChoice}
+                />
             </div>
-
+            <div className="flex flex-wrap justify-center gap-6 mt-6 mb-10">
+                {productChoice === "Luft/Luft" &&
+                    produkter.map((data) => {
+                        if (data.id.startsWith("luftLuft") && data.aktiv === true) {
+                            return (
+                                <Infocard
+                                    key={data.id}
+                                    imgSource={data.img}
+                                    employeeName={data.tittel}
+                                    employeeDescription={data.beskrivelse}
+                                    backgroundColor={"white"}
+                                    tekst={data.alt}
+                                />
+                            );
+                        }
+                    })}
+                {productChoice === "Luft/Vann" &&
+                    produkter.map((data) => {
+                        if (data.id.startsWith("luftVann") && data.aktiv === true) {
+                            return (
+                                <Infocard
+                                    key={data.id}
+                                    imgSource={data.img}
+                                    employeeName={data.tittel}
+                                    employeeDescription={data.beskrivelse}
+                                    backgroundColor={"white"}
+                                    tekst={data.alt}
+                                />
+                            );
+                        }
+                    })}
+                {productChoice === "Væske/Vann" &&
+                    produkter.map((data) => {
+                        if (data.id.startsWith("vaeskeVann") && data.aktiv === true) {
+                            return (
+                                <Infocard
+                                    key={data.id}
+                                    imgSource={data.img}
+                                    employeeName={data.tittel}
+                                    employeeDescription={data.beskrivelse}
+                                    backgroundColor={"white"}
+                                    tekst={data.alt}
+                                />
+                            );
+                        }
+                    })}
+                {productChoice === "Kjølerom" &&
+                    produkter.map((data) => {
+                        if (data.id.startsWith("kjolerom") && data.aktiv === true) {
+                            return (
+                                <Infocard
+                                    key={data.id}
+                                    imgSource={data.img}
+                                    employeeName={data.tittel}
+                                    employeeDescription={data.beskrivelse}
+                                    backgroundColor={"white"}
+                                    tekst={data.alt}
+                                />
+                            );
+                        }
+                    })}
+            </div>
             <KontaktOss
                 tittel={"Kontakt Oss"}
                 undertekst={"Send oss gjerne en mail eller ring oss i dag!"}
                 tlf={"+47 918 06 377"}
             />
-
             <Footer />
         </div>
     );
