@@ -65,7 +65,7 @@ function Home() {
 
             <ProductsHome />
 
-            <a className="flex flex-wrap self-center mt-2" to="/Products/LuftLuft" alt="Luft-Luft">
+            <div className="flex flex-wrap justify-center mt-2">
                 {forside.map((data) => {
                     if (
                         data.id === "infocardLuftLuft" ||
@@ -74,23 +74,19 @@ function Home() {
                         data.id === "infocardKjolerom"
                     ) {
                         return (
-                            <Link
-                                to={data.link}
-                                onClick={scrollToTop}
-                                className="hover:scale-105 duration-300 decoration-none z-auto"
-                            >
+                            <div>
                                 <Infocard
                                     imgSource={data.img}
                                     employeeName={data.tittel}
                                     employeeDescription={data.beskrivelse}
                                     tekst={data.alt}
                                 />
-                            </Link>
+                            </div>
                         );
                     }
                     return null;
                 })}
-            </a>
+            </div>
 
             {forside.map((data) => {
                 if (data.id === "kontaktOssKomponent") {
