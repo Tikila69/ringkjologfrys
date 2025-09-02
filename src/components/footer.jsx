@@ -21,16 +21,16 @@ const Footer = (props) => {
             </section>
             <section className="flex flex-col text-white gap-1">
                 <h2 className="underline">Produkter</h2>
-                <Link to="/Products/LuftLuft" onClick={scrollToTop}>
+                <Link to="/Products" onClick={scrollToTop}>
                     <p>Luft luft</p>
                 </Link>
-                <Link to="/Products/LuftVann" onClick={scrollToTop}>
+                <Link to="/Products" onClick={scrollToTop}>
                     <p>Luft vann</p>
                 </Link>
-                <Link to="/Products/VaeskeVann" onClick={scrollToTop}>
+                <Link to="/Products" onClick={scrollToTop}>
                     <p>Væske vann</p>
                 </Link>
-                <Link to="/Products/Kjolerom" onClick={scrollToTop}>
+                <Link to="/Products" onClick={scrollToTop}>
                     <p>Kjølerom</p>
                 </Link>
             </section>
