@@ -62,7 +62,7 @@ function KontaktOss(props) {
                     <Button
                         backgroundColor={"#25346d"}
                         textColor={"white"}
-                        text={"Kontaktskjema"}
+                        text={"Kontakt oss"}
                         kontaktoss={true}
                         fontSize={20}
                         pointer={true}

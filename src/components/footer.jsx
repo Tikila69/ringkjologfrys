@@ -64,7 +64,7 @@ const Footer = (props) => {
             <section className="flex flex-col text-white gap-1">
                 <h2 className="underline">Kontakt oss</h2>
                 <Link to="/Contact" onClick={scrollToTop}>
-                    <p>Kontaktskjema</p>
+                    <p>Kontakt oss</p>
                 </Link>
                 <Link to="/Contact" onClick={scrollToAnsatt}>
                     <p>Ansatte</p>
