@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/static/css/main.aaa9ce7f.css",
-    "main.js": "/static/js/main.3c1cc529.js",
+    "main.js": "/static/js/main.cfdc46c2.js",
     "static/js/787.aa970435.chunk.js": "/static/js/787.aa970435.chunk.js",
     "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/RINGLOGO.webp": "/static/media/RINGLOGO.106adb36d96973115e41.webp",
     "static/media/RINGLOGO_WHITE.webp": "/static/media/RINGLOGO_WHITE.1f7f56343a392537f02f.webp",
     "index.html": "/index.html",
     "main.aaa9ce7f.css.map": "/static/css/main.aaa9ce7f.css.map",
-    "main.3c1cc529.js.map": "/static/js/main.3c1cc529.js.map",
+    "main.cfdc46c2.js.map": "/static/js/main.cfdc46c2.js.map",
     "787.aa970435.chunk.js.map": "/static/js/787.aa970435.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.aaa9ce7f.css",
-    "static/js/main.3c1cc529.js"
+    "static/js/main.cfdc46c2.js"
   ]
 }
