@@ -26,7 +26,7 @@ function Products(props) {
     }, [prodRef]);
 
     return (
-        <div className="flex flex-col" style={{ fontFamily: "roboto" }}>
+        <div className="flex flex-col bg-[#EFEFEF]" style={{ fontFamily: "roboto" }}>
             <Navbar />
             <div className="ml-6 flex flex-col max-w-[50%] self-center">
                 <div className="flex text-2xl">
